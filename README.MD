@@ -1,60 +1,140 @@
 
-Download source code
 
-Run npm install
+📘 Giới thiệu
+EProject - Phase 1 là một hệ thống microservices mô phỏng quy trình kinh doanh của một ứng dụng thương mại điện tử đơn giản.
+Dự án được xây dựng để thực hành kiến trúc microservices, quản lý giao tiếp giữa các service thông qua RabbitMQ, và triển khai toàn bộ hệ thống bằng Docker Compose.
 
-Setup all microservices
+🧩 Các microservice chính
 
-Test all business logic with POSTMAN
+Auth Service: Quản lý người dùng, đăng ký và đăng nhập, cấp token JWT.
 
--REGISTER
+Product Service: Quản lý sản phẩm, lưu trữ thông tin sản phẩm trong MongoDB.
 
-![alt text](public/auth/register_EProject.png)
+Order Service: Quản lý đơn hàng, nhận thông tin sản phẩm và người dùng để tạo đơn hàng.
 
-![alt text](public/auth/login_EProject.png)
+API Gateway: Trung gian nhận request từ client và chuyển tiếp đến các service tương ứng.
 
-![alt text](public/auth/dashboard_EProject.png)
+RabbitMQ: Hàng đợi tin nhắn, đảm bảo truyền thông không đồng bộ giữa các service.
 
-![alt text](public/auth/register_tontai.png)
- - TRUONG HOP DA DANG KY TEN DO :
- {"message":"Username already taken"}
+MongoDB: Cơ sở dữ liệu chính của hệ thống.
 
--LOGIN
+⚙️ Công nghệ sử dụng
+Công nghệ	Mô tả
+Node.js	Nền tảng JavaScript phía server
+Express.js	Framework cho RESTful API
+MongoDB	Cơ sở dữ liệu NoSQL
+Mongoose	ORM cho MongoDB
+RabbitMQ	Message Broker dùng cho giao tiếp giữa các service
+Docker & Docker Compose	Dùng để container hóa và quản lý toàn bộ hệ thống
 
-![alt text](public/product/login_test.png)
+🚀 Cách cài đặt & chạy dự án
+1️⃣ Clone source code
 
--NHAP SAI USERNAME OR PASSWORD
-![alt text](public/product/error_pw_us.png)
+2️⃣ Cài đặt dependencies cho từng service
 
--CREATE PRODUCT
-![alt text](public/product/product_EProject.png)
+Chạy trong từng thư mục con:
 
- - ERROR CREATE PRODUCT 
- ![alt text](public/product/error_product.png)
+cd auth && npm install
+cd ../product && npm install
+cd ../order && npm install
+cd ../api-gateway && npm install
 
-- GET DANH SACH PRODUCT 
-![alt text](public/product/GET_Product_EProject.png)
+3️⃣ Chạy dự án bằng Docker Compose
+docker compose up -d --build
 
-- ORDER 
-![alt text](public/product/buy_product.png)
+
+📦 Docker sẽ tự động:
+
+Tạo và khởi động tất cả containers (auth, product, order, api-gateway, rabbitmq, mymongodb)
+
+Tạo network nội bộ để các service có thể giao tiếp
+
+Expose các cổng như:
+
+API Gateway: 3003
+
+Auth: 3000
+
+Product: 3001
+
+Order: 3002
+
+MongoDB: 27017
+
+RabbitMQ UI: 15672
+
+🧠 Kiểm thử API với Postman
+🔑 Auth Service
+
+Đăng ký người dùng
+
+POST http://localhost:3003/auth/register
+{
+  "email": "example@gmail.com",
+  "password": "123456"
+}
+
+
+Đăng nhập
+
+POST http://localhost:3003/auth/login
+
+🛍️ Product Service
+
+Thêm sản phẩm
+
+POST http://localhost:3003/products/api/products
+{
+  "name": "Laptop Dell XPS",
+  "price": 2500,
+  "description": "High-end ultrabook"
+}
+
+
+Lấy danh sách sản phẩm
+
+GET http://localhost:3003/products/api/products
+
+📦 Order Service
+
+Tạo đơn hàng
+
+POST http://localhost:3003/products/api/products/buy
+{
  
-- SHOW MONGODB 
-docker exec -it mymongodb mongosh
-![alt text](public/mongoDB/docker_mongo.png)
-![alt text](public/mongoDB/data_mongo.png)
-- USER
-![alt text](public/mongoDB/user_monggoDB.png)
-- PRODUCT
-![alt text](public/mongoDB/product_monggoDB.png)
-- ORDER
-![alt text](public/mongoDB/order_monggoDB.png)
+  "productId": "ID_PRODUCT"
+  
+}
 
-docker ps
-![alt text](public/mongoDB/docker_ps.png)
+🧰 Các lệnh Docker hữu ích
+Lệnh	Chức năng
+docker compose up -d	Khởi động toàn bộ dự án
+docker compose down -v	Dừng và xóa containers + volumes
+docker compose ps	Kiểm tra trạng thái các container
+docker logs api-gateway -f	Xem log của API Gateway
+docker exec -it mymongodb mongosh	Truy cập vào Mongo shell
+🧩 Cấu trúc dự án
+EProject-Phase-1/
+│
+├── auth/               # Service quản lý người dùng
+├── product/            # Service quản lý sản phẩm
+├── order/              # Service quản lý đơn hàng
+├── api-gateway/        # Gateway điều phối request
+├── docker-compose.yml  # Cấu hình Docker Compose
+└── README.md           # Tài liệu dự án
 
-docker-compose up --build
-![alt text](public/docker/docker-compose%20up--build.png)
-- DOCKER
-![alt text](public/docker/docker.png)
-![alt text](public/docker/docker_1.png)
-![alt text](public/docker/image_docker.png)
+🧑‍💻 Tác giả
+
+👩 Phan Thị Kim Truyền
+📚 Trường Đại học Công nghiệp TP.HCM (IUH)
+📧 Email: kimtruyen1407@gmail.com
+]
+🌐 GitHub: 14072004T
+
+🏁 Ghi chú
+
+Đảm bảo đã cài Docker Desktop và Node.js (nếu muốn chạy local không qua Docker).
+
+Khi test với Postman, hãy kiểm tra kỹ URL và cổng của API Gateway.
+
+Nếu thấy lỗi socket hang up, kiểm tra Gateway route và biến môi trường trong docker-compose.yml.
