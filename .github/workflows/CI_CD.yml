@@ -51,7 +51,7 @@ jobs:
         # 🧑‍💻 AUTH SERVICE
         echo "PORT=3000" >> auth/.env
         echo "MONGODB_AUTH_URI=mongodb://mymongodb:27017/authdb_test" >> auth/.env
-        echo "JWT_SECRET=mySuperSecretKey_22001005_Tan_@2025" >> auth/.env
+        echo "JWT_SECRET=mySuperSecretKey_22713071_KimTruyen" >> auth/.env
         echo "RABBITMQ_URL=amqp://rabbitmq" >> auth/.env
 
         # 📦 PRODUCT SERVICE
@@ -70,7 +70,7 @@ jobs:
         echo "AUTH_SERVICE_URL=http://auth:3000" >> api-gateway/.env
         echo "PRODUCT_SERVICE_URL=http://product:3001" >> api-gateway/.env
         echo "ORDER_SERVICE_URL=http://order:3002" >> api-gateway/.env
-        echo "JWT_SECRET=mySuperSecretKey_22001005_Tan_@2025" >> api-gateway/.env
+        echo "JWT_SECRET=mySuperSecretKey_22713071_KimTruyen" >> api-gateway/.env
 
     - name: 📦 Install dependencies
       run: |
@@ -131,21 +131,21 @@ jobs:
       with:
         context: ./auth
         push: true
-        tags: tandang2202/auth:latest
+        tags: truyen123456789/auth:latest
 
     - name: 🚀 Build and push PRODUCT image
       uses: docker/build-push-action@v5
       with:
         context: ./product
         push: true
-        tags: tandang2202/product:latest
+        tags: truyen123456789/product:latest
 
     - name: 🚀 Build and push ORDER image
       uses: docker/build-push-action@v5
       with:
         context: ./order
         push: true
-        tags: tandang2202/order:latest
+        tags: truyen123456789/order:latest
 
     - name: 🚀 Build and push API-GATEWAY image
       uses: docker/build-push-action@v5
