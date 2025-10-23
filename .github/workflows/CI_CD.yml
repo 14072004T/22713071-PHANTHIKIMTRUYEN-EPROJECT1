@@ -56,8 +56,8 @@ jobs:
 
         # 📦 PRODUCT SERVICE
         echo "PORT=3001" >> product/.env
-        echo "MONGODB_PRODUCT_URI=mongodb://mongodb-product:27017/productdb_test" >> product/.env
-        echo "JWT_SECRET=mySuperSecretKey_22001005_Tan_@2025" >> product/.env
+        echo "MONGODB_PRODUCT_URI=mongodb://mymongodb:27017/productdb" >> product/.env
+        echo "JWT_SECRET=mySuperSecretKey_22713071_KimTruyen" >> product/.env
         echo "RABBITMQ_URL=amqp://rabbitmq" >> product/.env
 
         # 🧾 ORDER SERVICE
@@ -152,7 +152,7 @@ jobs:
       with:
         context: ./api-gateway
         push: true
-        tags: tandang2202/api-gateway:latest
+        tags: truyen123456789/api-gateway:latest
 
     - name: ✅ Done
       run: echo "✅ All Docker images built & pushed to Docker Hub successfully!"
