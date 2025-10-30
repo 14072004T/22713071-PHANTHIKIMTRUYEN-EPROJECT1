@@ -115,12 +115,12 @@ class ProductController {
   //   const product= await Product.findById(id);
   //   res.status(200).json(product);
   // }
-
   async getProductById(req,res,next)
   {
-    const {id}=req.params;
-    const product=await Product.findById(id);
+    const {id}= req.params;
+    const product= await Product.findById(id);
     res.status(200).json(product);
   }
+
 }
 module.exports = ProductController;
